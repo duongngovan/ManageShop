@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.shopmanage.LoginActivity;
+import com.example.shopmanage.login.LoginActivity;
 import com.example.shopmanage.R;
 
 public class ManHinhCho extends AppCompatActivity {
