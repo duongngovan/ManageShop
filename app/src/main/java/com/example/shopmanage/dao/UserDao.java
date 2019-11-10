@@ -19,7 +19,7 @@ public class UserDao extends SQLiteOpenHelper {
     private static final String EMAIL = "email";
     private static final String USER = "user";
     private static final String PASS = "pass";
-    private static final String IMAGE = "image";
+
     private static final String DATANAME = "signupdata";
     private static final String TABLENAME = "tablename";
 
@@ -31,8 +31,8 @@ public class UserDao extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String table = " create table " + TABLENAME + "(" + ID + " integer primary key, " + NAME +
-                " text, " + PHONE + " text, " + EMAIL + " text, " + USER + " text, " + PASS + " text, " +
-                IMAGE + " blob )";
+                " text, " + PHONE + " text, " + EMAIL + " text, " + USER + " text, " + PASS + " text )"
+                ;
         sqLiteDatabase.execSQL(table);
 
     }
@@ -51,7 +51,7 @@ public class UserDao extends SQLiteOpenHelper {
         contentValues.put(EMAIL, user.getEmail());
         contentValues.put(USER, user.getUser());
         contentValues.put(PASS, user.getPass());
-        contentValues.put(IMAGE, user.getImage());
+
         db.insert(TABLENAME, null, contentValues);
         db.close();
     }
@@ -70,7 +70,7 @@ public class UserDao extends SQLiteOpenHelper {
                 signUpUser.setEmail(cursor.getString(3));
                 signUpUser.setUser(cursor.getString(4));
                 signUpUser.setPass(cursor.getString(5));
-                signUpUser.setImage(cursor.getBlob(6));
+
                 list.add(signUpUser);
             } while (cursor.moveToNext());
         }

@@ -7,25 +7,25 @@ public class SignUpUser {
     String email;
     String user;
     String pass;
-    byte [] image;
 
-    public SignUpUser(int id, String fullname, String phone, String email, String user, String pass, byte[] image) {
+
+    public SignUpUser(int id, String fullname, String phone, String email, String user, String pass ) {
         this.id = id;
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
         this.user = user;
         this.pass = pass;
-        this.image = image;
+
     }
 
-    public SignUpUser(String fullname, String phone, String email, String user, String pass, byte[] image) {
+    public SignUpUser(String fullname, String phone, String email, String user, String pass ) {
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
         this.user = user;
         this.pass = pass;
-        this.image = image;
+
     }
 
     public SignUpUser(String fullname, String phone, String email) {
@@ -90,12 +90,6 @@ public class SignUpUser {
     public void setPass(String pass) {
         this.pass = pass;
     }
-
-    public byte[] getImage() {
-        return image;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-}
+

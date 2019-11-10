@@ -75,12 +75,14 @@
         android:hint="passr" />
 
     <Button
+
         android:id="@+id/savebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dang ky" />
 
     <Button
+        android:onClick="back"
         android:id="@+id/backbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
