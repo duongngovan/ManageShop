@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.shopmanage.model.SignUpUser;
 
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class UserDao extends SQLiteOpenHelper {
     public Context context;
+
+    private static final String TAG = "datauser";
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String PHONE = "phone";
@@ -43,7 +46,7 @@ public class UserDao extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void add(SignUpUser user) {
+    public int add(SignUpUser user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, user.getFullname());
@@ -52,8 +55,18 @@ public class UserDao extends SQLiteOpenHelper {
         contentValues.put(USER, user.getUser());
         contentValues.put(PASS, user.getPass());
 
-        db.insert(TABLENAME, null, contentValues);
+        try {
+            if ( db.insert(TABLENAME, null, contentValues) == -1){
+                return -1;
+
+            }
+        }catch (Exception e){
+            Log.d(TAG,e.toString());
+        }
+
+
         db.close();
+        return 1;
     }
 
     public List<SignUpUser> getAll() {
