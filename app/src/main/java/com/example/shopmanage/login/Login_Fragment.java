@@ -15,12 +15,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.shopmanage.MainActivity;
 import com.example.shopmanage.R;
-import com.example.shopmanage.dao.UserDao;
+import com.example.shopmanage.dao.UserDAO;
 
 public class Login_Fragment extends Fragment {
     EditText edtUser, edtPass;
     Button btnLogin;
-    UserDao userDao;
+    UserDAO userDao;
     Intent intent;
 
     @Nullable
@@ -30,7 +30,7 @@ public class Login_Fragment extends Fragment {
         edtPass = view.findViewById(R.id.password);
         edtUser = view.findViewById(R.id.username);
         btnLogin = view.findViewById(R.id.login);
-        userDao = new UserDao(getContext());
+        userDao = new UserDAO(getContext());
         intent = new Intent(getContext(), MainActivity.class);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,6 @@ package com.example.shopmanage.nguoidung;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,22 +18,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shopmanage.R;
-import com.example.shopmanage.dao.UserDao;
+import com.example.shopmanage.dao.UserDAO;
 import com.example.shopmanage.login.LoginActivity;
-import com.example.shopmanage.login.SignUp_Fragment;
 import com.example.shopmanage.model.SignUpUser;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserActivity extends AppCompatActivity {
     Intent intent;
     RecyclerUser recyclerviewAdapter;
     RecyclerView recycler;
     List<SignUpUser> list;
-    UserDao db;
+    UserDAO db;
     Dialog dialog;
     EditText edtName,edtPhone,edtEmail,edtUser,edtPass,edtPassr;
     Button btnBack,btnSave;
@@ -95,7 +91,7 @@ public class UserActivity extends AppCompatActivity {
     private void recyclerview(){
         recycler = (RecyclerView)findViewById(R.id.recyclerview);
         list = new ArrayList<>();
-        db = new UserDao(getApplicationContext());
+        db = new UserDAO(getApplicationContext());
         list= db.getAll();
         setAdapter();
     }

@@ -12,7 +12,7 @@ import com.example.shopmanage.model.SignUpUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao extends SQLiteOpenHelper {
+public class UserDAO extends SQLiteOpenHelper {
     public Context context;
 
     private static final String TAG = "datauser";
@@ -26,7 +26,7 @@ public class UserDao extends SQLiteOpenHelper {
     private static final String DATANAME = "signupdata";
     private static final String TABLENAME = "tablename";
 
-    public UserDao(Context context) {
+    public UserDAO(Context context) {
         super(context, DATANAME, null, 1);
         this.context = context;
     }

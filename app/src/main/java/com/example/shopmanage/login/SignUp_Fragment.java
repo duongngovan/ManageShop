@@ -1,13 +1,6 @@
 package com.example.shopmanage.login;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shopmanage.R;
-import com.example.shopmanage.dao.UserDao;
+import com.example.shopmanage.dao.UserDAO;
 import com.example.shopmanage.model.SignUpUser;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.app.Activity.RESULT_OK;
 
 public class SignUp_Fragment extends Fragment {
     EditText edtName, edtPhone, edtEmail, edtUser, edtPass, edtPassr;
@@ -37,7 +25,7 @@ public class SignUp_Fragment extends Fragment {
     Button btnCamera;
     int REQUEST_CODE_CAMERA = 123;
     int REQUEST_CODE_FOLDER = 456;
-    UserDao db;
+    UserDAO db;
 
     @Nullable
     @Override
@@ -55,7 +43,7 @@ public class SignUp_Fragment extends Fragment {
         btnSave = (Button)view.findViewById(R.id.savebtn);
         btnCamera = (Button)view.findViewById(R.id.action);
         //
-        db = new UserDao(getContext());
+        db = new UserDAO(getContext());
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

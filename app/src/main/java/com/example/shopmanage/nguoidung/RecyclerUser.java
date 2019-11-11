@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopmanage.R;
-import com.example.shopmanage.dao.UserDao;
+import com.example.shopmanage.dao.UserDAO;
 import com.example.shopmanage.model.SignUpUser;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecyclerUser extends RecyclerView.Adapter<RecyclerUser.ViewHolder> {
     private List<SignUpUser> list;
     private Context context;
-    UserDao db;
+    UserDAO db;
 
     public RecyclerUser(List<SignUpUser> mlist, Context mcontext) {
         this.list = mlist;
@@ -34,7 +34,7 @@ public class RecyclerUser extends RecyclerView.Adapter<RecyclerUser.ViewHolder> 
         final Context context = parent.getContext();
         final LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.item_user, parent, false);
-        db = new UserDao(context);
+        db = new UserDAO(context);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

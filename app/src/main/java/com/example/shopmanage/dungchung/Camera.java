@@ -1,4 +1,4 @@
-package com.example.shopmanage.dadung;
+package com.example.shopmanage.dungchung;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
