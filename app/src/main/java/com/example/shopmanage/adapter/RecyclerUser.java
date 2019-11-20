@@ -1,4 +1,4 @@
-package com.example.shopmanage.nguoidung;
+package com.example.shopmanage.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

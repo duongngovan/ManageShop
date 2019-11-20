@@ -3,7 +3,8 @@
     android:layout_width="400dp"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagenv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher"/>
@@ -23,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-
+        android:onClick="chonNgaySinh"
+        android:id="@+id/chongaysinhnv"
         android:text="Chon ngày"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -43,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:onClick="chonNgayLam"
+        android:id="@+id/chongaylamnv"
         android:text="Chon Ngay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -56,6 +60,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:onClick="saved"
             android:id="@+id/savednv"
             android:text="Saved"
             android:layout_width="wrap_content"

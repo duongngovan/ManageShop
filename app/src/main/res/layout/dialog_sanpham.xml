@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="500dp"
+    android:orientation="vertical">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/hinhanhsanpham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+
+
+        <EditText
+            android:id="@+id/idsanpam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="ID"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/spinnerloai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Spinner>
+
+        <EditText
+            android:id="@+id/namesanpham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/giabansanpham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Gia Ban"
+            android:inputType="textPersonName" />
+
+        <Spinner
+            android:id="@+id/nguongocsp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nguon Goc"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/baohanhsp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Bao Hanh"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/soluongsp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="So Luong"
+            android:inputType="textPersonName" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/savesp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="saved"
+                android:text="Saved" />
+
+            <Button
+                android:id="@+id/newsp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="new" />
+
+            <Button
+                android:id="@+id/backsp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="back" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

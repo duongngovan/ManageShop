@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nhanvien.NhanVienActivity"
+    tools:context=".hoadonchitiet.HoaDonChiTietActivity"
     android:orientation="vertical">
     <include
-        android:id="@+id/nvtoolbar"
-        layout="@layout/nhanvientoolber"></include>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_nv"
+        android:id="@+id/toolbar_hdct"
+        layout="@layout/hoadonchitiettoolbar"/>
+    <RelativeLayout
+        android:id="@+id/recyclerview_hdct"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"></RelativeLayout>
 
 </LinearLayout>

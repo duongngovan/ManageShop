@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shopmanage.R;
+import com.example.shopmanage.adapter.RecyclerUser;
 import com.example.shopmanage.dao.UserDAO;
 import com.example.shopmanage.login.LoginActivity;
 import com.example.shopmanage.model.SignUpUser;

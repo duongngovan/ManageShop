@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nhanvien.NhanVienActivity"
+    tools:context=".hoadon.HoaDonActivity"
     android:orientation="vertical">
     <include
-        android:id="@+id/nvtoolbar"
-        layout="@layout/nhanvientoolber"></include>
+        android:id="@+id/toolbar_hd"
+        layout="@layout/hoadontoolbar"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_nv"
+        android:id="@+id/recyclerview_hd"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

@@ -9,9 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".nhanvien.NhanVienActivity"
-            android:theme="@style/NhanVien.NoActionBar"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".hoadonchitiet.HoaDonChiTietActivity"
+            android:parentActivityName=".sanpham.SanPhamActivity"
+            android:theme="@style/HoaDonChiTiet.NoActionBar"></activity>
+        <activity
+            android:name=".khachhang.KhachHangActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/KhachHang.NoActionBar" />
+        <activity
+            android:name=".hoadon.HoaDonActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/HoaDon.NoActionBar" />
+        <activity
+            android:name=".sanpham.SanPhamActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SanPham.NoActionBar" />
+        <activity
+            android:name=".hang.LoaiActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Loai.NoActionBar" />
+        <activity
+            android:name=".nhanvien.NhanVienActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/NhanVien.NoActionBar" />
         <activity
             android:name=".nguoidung.UserActivity"
             android:parentActivityName=".MainActivity"

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nhanvien.NhanVienActivity"
+    tools:context=".sanpham.SanPhamActivity"
     android:orientation="vertical">
     <include
-        android:id="@+id/nvtoolbar"
-        layout="@layout/nhanvientoolber"></include>
+        android:id="@+id/sanphamtoolbar"
+        layout="@layout/sanphamtoolbar"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_nv"
+        android:id="@+id/recyclerview_sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

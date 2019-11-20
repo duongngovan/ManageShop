@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+
+
+        <EditText
+            android:id="@+id/idloai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID loai" />
+
+        <EditText
+            android:id="@+id/nameloai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name Loai" />
+
+        <EditText
+            android:id="@+id/motaloai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Loai" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="saved"
+                android:text="Saved" />
+
+            <Button
+                android:id="@+id/btnNew_loai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="New" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

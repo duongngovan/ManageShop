@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/namekh"
+            android:hint="Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/sdtkh"
+            android:hint="Sđt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/diachikh"
+            android:hint="Dia chi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinnerkh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Spinner>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:onClick="savedKh"
+            android:text="Saved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="New"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

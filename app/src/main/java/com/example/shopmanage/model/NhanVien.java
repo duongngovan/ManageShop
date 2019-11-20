@@ -15,6 +15,17 @@ public class NhanVien {
     public NhanVien() {
     }
 
+    public NhanVien(String id, String name, Date ngaySinh, String sdt, String diaChi, Date ngayVaoLam, double luong, byte[] image) {
+        this.id = id;
+        this.name = name;
+        this.ngaySinh = ngaySinh;
+        this.sdt = sdt;
+        this.diaChi = diaChi;
+        this.ngayVaoLam = ngayVaoLam;
+        this.luong = luong;
+        this.image = image;
+    }
+
     public String getId() {
         return id;
     }

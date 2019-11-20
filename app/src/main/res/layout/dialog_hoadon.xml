@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    >
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <EditText
+        android:hint="ID"
+        android:id="@+id/idhoadon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Spinner
+        android:hint="Ten Khach Hang"
+        android:id="@+id/tenkhhoadon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/ngayhoadon"
+        android:enabled="true"
+        android:hint="ngay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="chonNgayHd"
+            android:text="Chon Ngay"
+            android:id="@+id/btnchonngayhoadon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:onClick="savedhd"
+            android:text="saved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="New"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
