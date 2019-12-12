@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.shopmanage.datahelper.DataHelperEmployee;
 import com.example.shopmanage.model.NhanVien;
+import com.example.shopmanage.model.SignUpUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,8 +37,9 @@ public class NhanVienDAO {
         db = dataHelperEmployee.getWritableDatabase();
     }
 
-    public static final String create_tb = " create table " + TB_NAME + " ( " + ID + " text primary key, " + NAME + " text, " + DATE + " text, "
-            + SDT + " text, " + DIACHI + " text, " + NGAY_VL + " text, " + LUONG + " real, " + IMAGE + " blob )";
+    public static final String create_tb = " create table " + TB_NAME + " ( " + ID + " text primary key, "
+            + NAME + " text not null, " + DATE + " text not null, " + SDT + " text not null, " + DIACHI + " text not null, " +
+            NGAY_VL + " text not null, " + LUONG + " real not null, " + IMAGE + " blob )";
 
     public int add(NhanVien nhanVien) {
         ContentValues values = new ContentValues();
@@ -49,18 +51,19 @@ public class NhanVienDAO {
         values.put(NGAY_VL, sdf.format(nhanVien.getNgayVaoLam()));
         values.put(LUONG, nhanVien.getLuong());
         values.put(IMAGE, nhanVien.getImage());
-        if (db.insert(TB_NAME, null, values) > 0){
+        if (db.insert(TB_NAME, null, values) > 0) {
             return 1;
         }
 
         db.close();
         return -1;
     }
-    public List<NhanVien> getAll(){
+
+    public List<NhanVien> getAll() {
         List<NhanVien> list = new ArrayList<>();
-        String select = " select * from "+TB_NAME;
-        Cursor cursor = db.rawQuery(select,null);
-        if (cursor.moveToFirst()){
+        String select = " select * from " + TB_NAME;
+        Cursor cursor = db.rawQuery(select, null);
+        if (cursor.moveToFirst()) {
             do {
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(cursor.getString(0));
@@ -68,7 +71,7 @@ public class NhanVienDAO {
                 try {
                     nhanVien.setNgaySinh(sdf.parse(cursor.getString(2)));
                     nhanVien.setNgayVaoLam(sdf.parse(cursor.getString(5)));
-                }catch (ParseException e){
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 nhanVien.setSdt(cursor.getString(3));
@@ -76,11 +79,25 @@ public class NhanVienDAO {
                 nhanVien.setLuong(cursor.getDouble(6));
                 nhanVien.setImage(cursor.getBlob(7));
                 list.add(nhanVien);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
         cursor.close();
         return list;
+    }
+
+    public int updateHandler(NhanVien nhanVien) {
+
+        ContentValues values = new ContentValues();
+        values.put(NAME, nhanVien.getName());
+        values.put(SDT, nhanVien.getSdt());
+        values.put(DIACHI, nhanVien.getDiaChi());
+        values.put(LUONG, nhanVien.getLuong());
+        return db.update(TB_NAME, values, ID + " = ? ", new String[]{String.valueOf(nhanVien.getId())});
+    }
+
+    public int delete(NhanVien nhanVien) {
+        return db.delete(TB_NAME, ID + " = ? ", new String[]{String.valueOf(nhanVien.getId())});
     }
 
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.shopmanage.datahelper.DataHelper;
 import com.example.shopmanage.model.KhachHang;
+import com.example.shopmanage.model.SignUpUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ public class KhachHangDAO {
         db = dataHelper.getWritableDatabase();
     }
 
-    public static final String create_tb = " create table " + TB_NAME + " ( " + ID + " integer primary key, " + NAME + " text, " + SDT + " text, "
-            + GIOITINH + " text, " + DIACHI + " text )";
+    public static final String create_tb = " create table " + TB_NAME + " ( " + ID + " integer primary key, "
+            + NAME + " text not null, " + SDT + " text not null, "
+            + GIOITINH + " text not null, " + DIACHI + " text not null )";
     public int add(KhachHang khachHang){
         ContentValues values = new ContentValues();
         values.put(NAME,khachHang.getName());
@@ -60,6 +62,17 @@ public class KhachHangDAO {
         cursor.close();
         db.close();
         return list;
+    }
+    public int delete(KhachHang khachHang) {
+        return db.delete(TB_NAME, ID + " = ? ", new String[]{String.valueOf(khachHang.getId())});
+    }
+    public int updateHandler(KhachHang khachHang) {
+
+        ContentValues values = new ContentValues();
+        values.put(NAME, khachHang.getName());
+        values.put(SDT, khachHang.getSdt());
+        values.put(DIACHI, khachHang.getDiaChi());
+        return db.update(TB_NAME, values, ID + " = ? ", new String[]{String.valueOf(khachHang.getId())});
     }
 
 }

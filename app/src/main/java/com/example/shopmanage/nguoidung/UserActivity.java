@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.shopmanage.R;
 import com.example.shopmanage.adapter.RecyclerUser;
 import com.example.shopmanage.dao.UserDAO;
-import com.example.shopmanage.login.LoginActivity;
+import com.example.shopmanage.login.DangNhap;
 import com.example.shopmanage.model.SignUpUser;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class UserActivity extends AppCompatActivity {
                 && edtPass.length() != 0){
             try {
                 SignUpUser upUser = new SignUpUser(name.trim()
-                        ,phone.trim(),email.trim(),user.trim(),pass.trim());
+                        ,email.trim(),user.trim(),pass.trim());
                 db.add(upUser);
                 Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_SHORT).show();
             }catch (Exception e){
@@ -130,7 +130,7 @@ public class UserActivity extends AppCompatActivity {
             builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent = new Intent(getApplicationContext(), DangNhap.class);
                     startActivity(intent);
                 }
             });

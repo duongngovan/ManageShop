@@ -30,7 +30,7 @@ public class LoaiDAO {
     }
 
     public static final String create_tb = " create table " + TB_NAME + " ( " + ID + " text primary key, "
-            + NAME + " text, " + MOTA + " text )";
+            + NAME + " text not null, " + MOTA + " text not null )";
 
     public int add(Loai loai){
         ContentValues values = new ContentValues();
@@ -59,6 +59,31 @@ public class LoaiDAO {
         cursor.close();
         db.close();
         return list;
+    }
+    public int update(Loai loai){
+        ContentValues values = new ContentValues();
+        values.put(NAME,loai.getName());
+        values.put(MOTA,loai.getMoTa());
+        return db.update(TB_NAME,values, ID + " = ? ",new String[]{String.valueOf(loai.getId())});
+    }
+    public int delete(Loai loai){
+        return db.delete(TB_NAME, ID + " = ? ", new String[]{String.valueOf(loai.getId())});
+
+    }
+    public boolean checkID(String id) {
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TB_NAME,null,ID + " = ? ",new String[]{String.valueOf(id)},null,null,null);
+            cursor.moveToFirst();
+            int i  = cursor.getCount();
+            if (i <= 0) {
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+
+        }
+        return false;
     }
 
 

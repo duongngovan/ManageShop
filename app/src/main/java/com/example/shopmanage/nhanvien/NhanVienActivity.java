@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,12 +19,16 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.shopmanage.R;
@@ -31,6 +37,7 @@ import com.example.shopmanage.dao.NhanVienDAO;
 import com.example.shopmanage.datahelper.DataHelperEmployee;
 import com.example.shopmanage.dungchung.Camera;
 import com.example.shopmanage.model.NhanVien;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -47,13 +54,15 @@ public class NhanVienActivity extends AppCompatActivity  {
     Dialog dialog;
     CircleImageView circleImageView;
     EditText edID,edName,edNgaySinh,edSDT,edDiaChi,edNgayVaoLam,edLuong;
-    Button btnSaved,btnNew,btnBack,btnNgaySinh,btnNgayLam;
+    Button btnSaved,btnBack;
+    FloatingActionButton btnChonAnh;
     NhanVienDAO nhanVienDAO;
     NhanVien nhanVien;
     DataHelperEmployee dataHelperEmployee;
     RecyclerNhanVien recyclerNhanVien;
     RecyclerView recyclerView;
     List<NhanVien> list;
+
 
     int REQUEST_CODE_CAMERA = 123;
     int REQUEST_CODE_FOLDER = 456;
@@ -74,8 +83,38 @@ public class NhanVienActivity extends AppCompatActivity  {
         anhXa();
         camera();
         setRecyclerView();
+        EditText edtSearch = findViewById(R.id.editext);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                 filter(editable.toString());
+            }
+        });
+
+
 
     }
+    private void filter(String text){
+        ArrayList<NhanVien> filteredList = new ArrayList<>();
+        for (NhanVien item : list){
+            if (item.getId().toLowerCase().contains(text.toLowerCase()) || item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        recyclerNhanVien.filterList(filteredList);
+    }
+
+
     private void anhXa(){
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_nhanvien);
@@ -87,15 +126,15 @@ public class NhanVienActivity extends AppCompatActivity  {
         edNgayVaoLam = dialog.findViewById(R.id.ngayvaolamnv);
         edLuong = dialog.findViewById(R.id.luongnv);
         btnSaved = dialog.findViewById(R.id.savednv);
-        btnNew = dialog.findViewById(R.id.newnv);
+        btnChonAnh = dialog.findViewById(R.id.btnchonanh);
         btnBack = dialog.findViewById(R.id.backnv);
-        circleImageView = dialog.findViewById(R.id.imagenv);
+        circleImageView = dialog.findViewById(R.id.hinhanhsanpham);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_nv);
 
     }
 
     private void camera(){
-        circleImageView.setOnClickListener(new View.OnClickListener() {
+        btnChonAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(NhanVienActivity.this);
@@ -164,6 +203,7 @@ public class NhanVienActivity extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_nhanvien,menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -222,6 +262,11 @@ public class NhanVienActivity extends AppCompatActivity  {
             recyclerNhanVien.notifyDataSetChanged();
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 
 

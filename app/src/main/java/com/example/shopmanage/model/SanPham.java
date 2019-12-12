@@ -76,4 +76,7 @@ public class SanPham {
     public void setHinhanh(byte[] hinhanh) {
         this.hinhanh = hinhanh;
     }
+    public String sp(){
+        return id + " || " +name;
+    }
 }

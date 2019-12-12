@@ -17,6 +17,8 @@ import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import com.example.shopmanage.R;
 import com.example.shopmanage.adapter.RecyclerViewLoai;
 import com.example.shopmanage.dao.LoaiDAO;
 import com.example.shopmanage.model.Loai;
+import com.example.shopmanage.model.NhanVien;
 import com.example.shopmanage.nhanvien.NhanVienActivity;
 
 import java.io.FileNotFoundException;
@@ -60,6 +63,35 @@ public class LoaiActivity extends AppCompatActivity {
         anhXa();
         setRecyclerview();
 
+        EditText edtSearch = findViewById(R.id.editext);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
+
+
+    }
+    private void filter(String text){
+        ArrayList<Loai> filteredList = new ArrayList<>();
+        for (Loai item : list){
+            if (item.getId().toLowerCase().contains(text.toLowerCase()) || item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        recyclerViewLoai.filterList(filteredList);
     }
     private void anhXa(){
         dialog = new Dialog(this);
@@ -67,7 +99,7 @@ public class LoaiActivity extends AppCompatActivity {
         edId = dialog.findViewById(R.id.idloai);
         edName = dialog.findViewById(R.id.nameloai);
         edMota = dialog.findViewById(R.id.motaloai);
-        btnNew = dialog.findViewById(R.id.btnNew_loai);
+
 
 
     }
@@ -80,6 +112,7 @@ public class LoaiActivity extends AppCompatActivity {
         loai.setMoTa(edMota.getText().toString());
 
         loaiDAO.add(loai);
+        setRecyclerview();
 
     }
 
@@ -115,5 +148,9 @@ public class LoaiActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 }

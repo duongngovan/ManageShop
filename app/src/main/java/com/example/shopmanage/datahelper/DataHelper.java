@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.shopmanage.dao.HoaDonChiTietDAO;
 import com.example.shopmanage.dao.HoaDonDAO;
 import com.example.shopmanage.dao.KhachHangDAO;
 import com.example.shopmanage.dao.LoaiDAO;
@@ -23,7 +22,7 @@ public class DataHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(LoaiDAO.create_tb);
         sqLiteDatabase.execSQL(SanPhamDAO.create_tb);
         sqLiteDatabase.execSQL(HoaDonDAO.create_tb);
-        sqLiteDatabase.execSQL(HoaDonChiTietDAO.create_tb);
+
         sqLiteDatabase.execSQL(KhachHangDAO.create_tb);
     }
 
@@ -32,7 +31,7 @@ public class DataHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(" drop table if exists " + LoaiDAO.TB_NAME);
         sqLiteDatabase.execSQL(" drop table if exists " +SanPhamDAO.TB_NAME);
         sqLiteDatabase.execSQL(" drop table if exists " +HoaDonDAO.TB_NAME);
-        sqLiteDatabase.execSQL(" drop table if exists "+HoaDonChiTietDAO.TB_NAME);
+
         sqLiteDatabase.execSQL(" drop table if exists "+KhachHangDAO.TB_NAME);
         onCreate(sqLiteDatabase);
 

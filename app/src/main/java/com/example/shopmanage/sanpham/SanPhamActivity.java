@@ -16,6 +16,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +34,9 @@ import com.example.shopmanage.dao.SanPhamDAO;
 import com.example.shopmanage.dungchung.Camera;
 import com.example.shopmanage.hang.LoaiActivity;
 import com.example.shopmanage.model.Loai;
+import com.example.shopmanage.model.NhanVien;
 import com.example.shopmanage.model.SanPham;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -45,7 +49,7 @@ public class SanPhamActivity extends AppCompatActivity {
 
     EditText edId,edName,edBaoHanh,edGiaBan,edSoLuong;
     Spinner spLoai,spNguonGoc;
-    Button btnNew;
+    FloatingActionButton ftbAnh;
     Dialog dialog;
     List<String> listNguongoc;
     ArrayAdapter adapter;
@@ -79,6 +83,35 @@ public class SanPhamActivity extends AppCompatActivity {
         spinnerLoai();
         camera();
         recyclerview();
+        EditText edtSearch = findViewById(R.id.editext);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
+
+
+
+    }
+    private void filter(String text){
+        ArrayList<SanPham> filteredList = new ArrayList<>();
+        for (SanPham item : listl){
+            if (item.getId().toLowerCase().contains(text.toLowerCase()) || item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        recyclerSanPham.filterList(filteredList);
     }
     public void saved(View view){
         com.example.shopmanage.dungchung.Camera camera = new Camera();
@@ -163,12 +196,12 @@ public class SanPhamActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_sanpham);
         spNguonGoc = dialog.findViewById(R.id.nguongocsp);
         spLoai = dialog.findViewById(R.id.spinnerloai);
-        edId = dialog.findViewById(R.id.idsanpam);
+        edId = dialog.findViewById(R.id.idsanpham);
         edName = dialog.findViewById(R.id.namesanpham);
         edBaoHanh = dialog.findViewById(R.id.baohanhsp);
         edGiaBan = dialog.findViewById(R.id.giabansanpham);
         edSoLuong = dialog.findViewById(R.id.soluongsp);
-        btnNew = dialog.findViewById(R.id.newsp);
+        ftbAnh = dialog.findViewById(R.id.btnchonanh);
         circleImageView = dialog.findViewById(R.id.hinhanhsanpham);
 
     }
@@ -186,7 +219,7 @@ public class SanPhamActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private void camera(){
-        circleImageView.setOnClickListener(new View.OnClickListener() {
+        ftbAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SanPhamActivity.this);
@@ -231,5 +264,10 @@ public class SanPhamActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

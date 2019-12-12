@@ -3,42 +3,39 @@ package com.example.shopmanage.model;
 public class SignUpUser {
     int id;
     String fullname;
-    String phone;
+
     String email;
     String user;
     String pass;
 
 
-    public SignUpUser(int id, String fullname, String phone, String email, String user, String pass ) {
+    public SignUpUser(int id, String fullname, String email, String user, String pass ) {
         this.id = id;
         this.fullname = fullname;
-        this.phone = phone;
+
         this.email = email;
         this.user = user;
         this.pass = pass;
 
     }
 
-    public SignUpUser(String fullname, String phone, String email, String user, String pass ) {
+    public SignUpUser(String fullname,  String email, String user, String pass ) {
         this.fullname = fullname;
-        this.phone = phone;
+
         this.email = email;
         this.user = user;
         this.pass = pass;
 
     }
 
-    public SignUpUser(String fullname, String phone, String email) {
+    public SignUpUser(String fullname,  String email) {
         this.fullname = fullname;
-        this.phone = phone;
+
         this.email = email;
 
     }
 
-    public SignUpUser(String user, String pass) {
-        this.user = user;
-        this.pass = pass;
-    }
+
 
     public SignUpUser() {
     }
@@ -59,13 +56,7 @@ public class SignUpUser {
         this.fullname = fullname;
     }
 
-    public String getPhone() {
-        return phone;
-    }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public String getEmail() {
         return email;

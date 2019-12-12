@@ -18,11 +18,9 @@ public class UserDAO extends SQLiteOpenHelper {
     private static final String TAG = "datauser";
     private static final String ID = "id";
     private static final String NAME = "name";
-    private static final String PHONE = "phone";
     private static final String EMAIL = "email";
     private static final String USER = "user";
     private static final String PASS = "pass";
-
     private static final String DATANAME = "signupdata";
     private static final String TABLENAME = "tablename";
 
@@ -34,7 +32,7 @@ public class UserDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String table = " create table " + TABLENAME + "(" + ID + " integer primary key, " + NAME +
-                " text, " + PHONE + " text, " + EMAIL + " text, " + USER + " text, " + PASS + " text )"
+                " text not null, " + EMAIL + " text not null, " + USER + " text not null, " + PASS + " text not null )"
                 ;
         sqLiteDatabase.execSQL(table);
 
@@ -50,7 +48,6 @@ public class UserDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, user.getFullname());
-        contentValues.put(PHONE, user.getPhone());
         contentValues.put(EMAIL, user.getEmail());
         contentValues.put(USER, user.getUser());
         contentValues.put(PASS, user.getPass());
@@ -79,10 +76,10 @@ public class UserDAO extends SQLiteOpenHelper {
                 SignUpUser signUpUser = new SignUpUser();
                 signUpUser.setId(Integer.parseInt(cursor.getString(0)));
                 signUpUser.setFullname(cursor.getString(1));
-                signUpUser.setPhone(cursor.getString(2));
-                signUpUser.setEmail(cursor.getString(3));
-                signUpUser.setUser(cursor.getString(4));
-                signUpUser.setPass(cursor.getString(5));
+
+                signUpUser.setEmail(cursor.getString(2));
+                signUpUser.setUser(cursor.getString(3));
+                signUpUser.setPass(cursor.getString(4));
 
                 list.add(signUpUser);
             } while (cursor.moveToNext());
@@ -112,15 +109,14 @@ public class UserDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME, upUser.getFullname());
-        values.put(PHONE, upUser.getPhone());
         values.put(EMAIL, upUser.getEmail());
         return db.update(TABLENAME, values, ID + " = ? ", new String[]{String.valueOf(upUser.getId())});
     }
 
     public int delete(SignUpUser upUser) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLENAME, ID + " = ? ", new String[]{String.valueOf(upUser.getId())});
-        return 1;
+        return db.delete(TABLENAME, ID + " = ? ", new String[]{String.valueOf(upUser.getId())});
+
     }
 
     public int doiMatK(SignUpUser signUpUser) {

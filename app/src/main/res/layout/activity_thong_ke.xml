@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".hoadonchitiet.HoaDonChiTietActivity"
+
     android:orientation="vertical">
     <include
-        android:id="@+id/toolbar_hdct"
-        layout="@layout/hoadonchitiettoolbar"/>
-    <RelativeLayout
-        android:id="@+id/recyclerview_hdct"
+        android:id="@+id/toolbar_tk"
+        layout="@layout/thongketoolbar"/>
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        />
 </LinearLayout>
