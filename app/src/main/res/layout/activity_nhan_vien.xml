@@ -47,6 +47,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:id="@+id/recyclerview_nv"
         android:layout_width="match_parent"

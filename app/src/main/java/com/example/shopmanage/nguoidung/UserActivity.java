@@ -44,6 +44,7 @@ public class UserActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerview();
+        setAdapter();
         anhXa();
     }
     private void anhXa(){
@@ -83,6 +84,8 @@ public class UserActivity extends AppCompatActivity {
                 SignUpUser upUser = new SignUpUser(name.trim()
                         ,email.trim(),user.trim(),pass.trim());
                 db.add(upUser);
+                list.clear();
+                list.addAll(db.getAll());
                 Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_SHORT).show();
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(),"Fail",Toast.LENGTH_SHORT).show();
@@ -94,7 +97,7 @@ public class UserActivity extends AppCompatActivity {
         list = new ArrayList<>();
         db = new UserDAO(getApplicationContext());
         list= db.getAll();
-        setAdapter();
+
     }
     private void setAdapter(){
         if (recyclerviewAdapter == null){

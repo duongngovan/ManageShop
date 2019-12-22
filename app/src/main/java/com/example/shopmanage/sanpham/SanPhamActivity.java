@@ -23,18 +23,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.shopmanage.R;
 import com.example.shopmanage.adapter.RecyclerSanPham;
 import com.example.shopmanage.dao.LoaiDAO;
 import com.example.shopmanage.dao.SanPhamDAO;
 import com.example.shopmanage.dungchung.Camera;
-import com.example.shopmanage.hang.LoaiActivity;
 import com.example.shopmanage.model.Loai;
-import com.example.shopmanage.model.NhanVien;
 import com.example.shopmanage.model.SanPham;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,26 +45,27 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SanPhamActivity extends AppCompatActivity {
 
-    EditText edId,edName,edBaoHanh,edGiaBan,edSoLuong;
-    Spinner spLoai,spNguonGoc;
-    FloatingActionButton ftbAnh;
-    Dialog dialog;
-    List<String> listNguongoc;
-    ArrayAdapter adapter;
-    SanPham sanPham;
-    SanPhamDAO sanPhamDAO;
-    RecyclerView recyclerView;
-    List<SanPham> listl;
-    RecyclerSanPham recyclerSanPham;
+    private EditText edId,edName,edBaoHanh,edGiaBan,edSoLuong;
+    private Spinner spLoai,spNguonGoc;
+    private FloatingActionButton ftbAnh;
+    private Dialog dialog;
+    private List<String> listNguongoc;
+    private ArrayAdapter adapter;
+    private SanPham sanPham;
+    private SanPhamDAO sanPhamDAO;
+    private RecyclerView recyclerView;
+    private List<SanPham> listl;
+    private RecyclerSanPham recyclerSanPham;
 
     //
-    LoaiDAO loaiDAO;
-    List<Loai> loai = new ArrayList<>();
-    List<String> listLoai = new ArrayList<>();
-    ArrayAdapter arrayAdapterLoai;
-    int REQUEST_CODE_CAMERA = 123;
-    int REQUEST_CODE_FOLDER = 456;
-    CircleImageView circleImageView;
+    private LoaiDAO loaiDAO;
+    private List<Loai> loai = new ArrayList<>();
+    private List<String> listLoai = new ArrayList<>();
+    private ArrayAdapter arrayAdapterLoai;
+    private int REQUEST_CODE_CAMERA = 123;
+    private int REQUEST_CODE_FOLDER = 456;
+    private CircleImageView circleImageView;
+    private String id,name,baoHanh,giaBan,soLuong;
 
 
 
@@ -83,6 +82,7 @@ public class SanPhamActivity extends AppCompatActivity {
         spinnerLoai();
         camera();
         recyclerview();
+        setAdapter();
         EditText edtSearch = findViewById(R.id.editext);
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,16 +113,114 @@ public class SanPhamActivity extends AppCompatActivity {
         }
         recyclerSanPham.filterList(filteredList);
     }
+    private boolean check(){
+        sanPhamDAO = new SanPhamDAO(getApplicationContext());
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Thêm sản phẩm thất bại !");
+        if (id.trim().length() == 0 || name.trim().length() == 0 || baoHanh.trim().length() == 0 || soLuong.trim().length() == 0 || giaBan.trim().length() == 0){
+            builder.setMessage("Vui lòng nhập đầy đủ !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (sanPhamDAO.checkID(id) ){
+            builder.setMessage("ID đã tồn tại !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if ( id.trim().length() >= 15 || id.trim().length() < 3){
+            builder.setMessage("ID phải từ 3 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (name.trim().length() >= 25 || name.trim().length() <= 5){
+            builder.setMessage("Tên phải từ 5 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        try {
+            int i = Integer.parseInt(soLuong);
+            if (i <= 0){
+                builder.setMessage("Số lượng phải lớn hơn không !");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        try {
+            int i = Integer.parseInt(giaBan);
+            if (i <= 0){
+                builder.setMessage("Số lượng phải lớn hơn không !");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public void dimssSanPham(View view){
+        dialog.dismiss();
+    }
     public void saved(View view){
+        id = edId.getText().toString();
+        name = edName.getText().toString();
+        baoHanh = edBaoHanh.getText().toString();
+        soLuong = edSoLuong.getText().toString();
+        giaBan = edGiaBan.getText().toString();
         com.example.shopmanage.dungchung.Camera camera = new Camera();
-        sanPham.setId(edId.getText().toString());
-        sanPham.setName(edName.getText().toString());
-        sanPham.setBh(edBaoHanh.getText().toString());
-        sanPham.setGiaBan(Double.parseDouble(edGiaBan.getText().toString()));
-        sanPham.setSoLuong(Integer.parseInt(edSoLuong.getText().toString()));
+        sanPham.setId(id);
+        sanPham.setName(name);
+        sanPham.setBh(baoHanh);
+        sanPham.setGiaBan(Double.parseDouble(giaBan));
+        sanPham.setSoLuong(Integer.parseInt(soLuong));
         sanPham.setHinhanh(camera.ImageView_To_Byte(circleImageView));
         sanPhamDAO = new SanPhamDAO(getApplicationContext());
-        sanPhamDAO.add(sanPham);
+        if (check()){
+            sanPhamDAO.add(sanPham);
+            listl.clear();
+            listl.addAll(sanPhamDAO.getAll());
+            setAdapter();
+            Toast.makeText(getApplicationContext(),"Thành công",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(),"Thất bại",Toast.LENGTH_SHORT).show();
+        }
 
     }
     private void recyclerview(){
@@ -130,7 +228,7 @@ public class SanPhamActivity extends AppCompatActivity {
         listl = new ArrayList<>();
         sanPhamDAO = new SanPhamDAO(getApplicationContext());
         listl = sanPhamDAO.getAll();
-        setAdapter();
+
 
     }
     private void setAdapter(){

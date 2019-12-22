@@ -94,6 +94,7 @@ public class SanPhamDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return tinhtong;
     }
 

@@ -1,12 +1,14 @@
 package com.example.shopmanage.khachhang;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.shopmanage.R;
 import com.example.shopmanage.adapter.RecyclerViewKhachHang;
@@ -26,17 +29,18 @@ import java.util.List;
 
 public class KhachHangActivity extends AppCompatActivity {
 
-    EditText edtName,edSdt,edDiaChi;
-    Spinner spGioiTinh;
-    Dialog dialog;
-    KhachHangDAO khachHangDAO;
-    KhachHang khachHang = new KhachHang();
-    List<KhachHang> list;
-    List<String> listSp;
-    ArrayAdapter arrayAdapter;
+    private EditText edtName,edSdt,edDiaChi;
+    private Spinner spGioiTinh;
+    private Dialog dialog;
+    private KhachHangDAO khachHangDAO;
+    private KhachHang khachHang = new KhachHang();
+    private List<KhachHang> list;
+    private List<String> listSp;
+    private ArrayAdapter arrayAdapter;
 
-    RecyclerView recyclerView;
-    RecyclerViewKhachHang recyclerViewKhachHang;
+    private RecyclerView recyclerView;
+    private RecyclerViewKhachHang recyclerViewKhachHang;
+    private String name,sdt,diachi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +71,66 @@ public class KhachHangActivity extends AppCompatActivity {
             recyclerViewKhachHang.notifyDataSetChanged();
         }
     }
+    private boolean check(){
+        androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Thêm loại sản phẩm thất bại !");
+        if (name.trim().length() == 0 || sdt.trim().length()==0 || diachi.trim().length() == 0 ){
+            builder.setMessage("Vui lòng nhập đầy đủ !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (name.trim().length() >= 30 || name.trim().length() < 7){
+            builder.setMessage("Tên phải từ 7 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+
+        if (diachi.trim().length() >= 50 || diachi.trim().length() <= 5){
+            builder.setMessage("Tên phải từ 5 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        return true;
+    }
+    public void dimssKhachHang(View view){
+        dialog.dismiss();
+    }
     public void savedKh(View view){
+        name = edtName.getText().toString();
+        diachi = edDiaChi.getText().toString();
+        sdt = edSdt.getText().toString();
         khachHangDAO = new KhachHangDAO(getApplicationContext());
 
-
-        khachHang.setName(edtName.getText().toString());
-        khachHang.setDiaChi(edDiaChi.getText().toString());
-        khachHang.setSdt(edSdt.getText().toString());
-
-        khachHangDAO.add(khachHang);
+        khachHang.setName(name);
+        khachHang.setDiaChi(diachi);
+        khachHang.setSdt(sdt);
+        if (check()){
+            khachHangDAO.add(khachHang);
+            list.clear();
+            list.addAll(khachHangDAO.getAll());
+            setAdapter();
+            Toast.makeText(getApplicationContext(),"Thành công",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(),"Thất bại",Toast.LENGTH_SHORT).show();
+        }
 
 
     }

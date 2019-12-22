@@ -99,5 +99,21 @@ public class NhanVienDAO {
     public int delete(NhanVien nhanVien) {
         return db.delete(TB_NAME, ID + " = ? ", new String[]{String.valueOf(nhanVien.getId())});
     }
+    public boolean checkID(String id) {
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TB_NAME,null,ID + " = ? ",new String[]{String.valueOf(id)},null,null,null);
+            cursor.moveToFirst();
+            int i  = cursor.getCount();
+            if (i <= 0) {
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+
+        }
+        return false;
+    }
+
 
 }

@@ -169,6 +169,7 @@
         app:layout_constraintVertical_bias="0.133" />
 
     <Button
+        android:onClick="dimssSanPham"
         android:id="@+id/backsp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

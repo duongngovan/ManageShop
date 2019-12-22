@@ -68,7 +68,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="name"
+        android:hint="Tên Nhân Viên"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,6 @@
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
         android:ems="10"
         android:enabled="true"
         android:hint="Ngay Sinh"
@@ -106,20 +105,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ngaysinhnv" />
 
-    <Button
-        android:onClick="chonNgaySinh"
+    <ImageButton
         android:id="@+id/chongaysinhnv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Chọn Ngày"
+        android:layout_width="69dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:onClick="chonNgaySinh"
+        android:src="@drawable/calendaricon"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toEndOf="@+id/ngaysinhnv"
         app:layout_constraintTop_toBottomOf="@+id/namenv" />
 
     <EditText
@@ -144,29 +139,26 @@
         android:id="@+id/ngayvaolamnv"
         android:layout_width="223dp"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:enabled="true"
         android:hint="Ngày Vào Làm"
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/chongaylamnv"
-        app:layout_constraintHorizontal_bias="0.694"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diachinv" />
 
-    <Button
+    <ImageButton
         android:id="@+id/chongaylamnv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="69dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:onClick="chonNgayLam"
+        android:src="@drawable/calendaricon"
         android:text="Chọn Ngày"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diachinv" />
@@ -191,8 +183,8 @@
 
     <Button
         android:id="@+id/savednv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
@@ -203,18 +195,19 @@
         android:text="Lưu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/backnv"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintHorizontal_bias="0.641"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/luongnv"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
+        android:onClick="dimssNhanVien"
         android:id="@+id/backnv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="44dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:layout_marginBottom="8dp"
         android:text="Quay lại"
         app:layout_constraintBottom_toBottomOf="parent"

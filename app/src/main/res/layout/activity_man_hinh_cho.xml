@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phần mềm quản lý shop"
+            android:text="Phần mềm quản lý cửa hàng"
             android:textColor="#FFF"
             android:textSize="20sp" />
 

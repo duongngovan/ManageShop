@@ -1,6 +1,7 @@
 package com.example.shopmanage.hoadon;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shopmanage.R;
 import com.example.shopmanage.adapter.RecyclerViewHoaDon;
@@ -42,20 +45,20 @@ import java.util.Calendar;
 import java.util.List;
 
 public class HoaDonActivity extends AppCompatActivity {
-    Calendar calendar;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    EditText edID,edNgay,edSoLuong;
+    private Calendar calendar;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private EditText edID,edNgay,edSoLuong;
 
-    TextView txtTong;
-    String name;
+    private TextView txtTong;
+    private String name;
 
-    Dialog dialog;
-    Spinner spKhachHang,spSanPham;
-    HoaDonDAO hoaDonDAO;
-    HoaDon hoaDon = new HoaDon();
-    KhachHangDAO khachHangDAO;
-    List<KhachHang> listkhachHang = new ArrayList<>();
-    List<String> listSp = new ArrayList<String>();
+    private Dialog dialog;
+    private Spinner spKhachHang,spSanPham;
+    private HoaDonDAO hoaDonDAO;
+    private HoaDon hoaDon = new HoaDon();
+    private KhachHangDAO khachHangDAO;
+    private List<KhachHang> listkhachHang = new ArrayList<>();
+    private List<String> listSp = new ArrayList<String>();
 
     ArrayAdapter arrayAdapter;
     RecyclerView recyclerView;
@@ -67,7 +70,7 @@ public class HoaDonActivity extends AppCompatActivity {
     SanPhamDAO sanPhamDAO;
     List<SanPham> listSanPham = new ArrayList<>();
     List<String> listNameId = new ArrayList<>();
-
+    private String id,ngay,soLuong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,16 +132,86 @@ public class HoaDonActivity extends AppCompatActivity {
             recyclerViewHoaDon.notifyDataSetChanged();
         }
     }
-    public void savedhd(View view){
+    private boolean check(){
         hoaDonDAO = new HoaDonDAO(getApplicationContext());
-        hoaDon.setId(edID.getText().toString());
+        androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Thêm hóa đơn thất bại !");
+        if (id.trim().length() == 0 || ngay.trim().length() == 0 || soLuong.trim().length() == 0){
+            builder.setMessage("Vui lòng nhập đầy đủ !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (hoaDonDAO.checkID(id) ){
+            builder.setMessage("ID đã tồn tại !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if ( id.trim().length() >= 15 || id.trim().length() < 3){
+            builder.setMessage("ID phải từ 3 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
         try {
-            hoaDon.setNgay(sdf.parse(edNgay.getText().toString()));
+            int i = Integer.parseInt(soLuong);
+            if (i <= 0){
+                builder.setMessage("Số lượng phải lớn hơn 0 !");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public void dimssLoaiHoaDon(View view){
+        dialog.dismiss();
+    }
+    public void savedhd(View view){
+        id = edID.getText().toString();
+        ngay = edNgay.getText().toString();
+        soLuong = edSoLuong.getText().toString();
+        hoaDonDAO = new HoaDonDAO(getApplicationContext());
+        hoaDon.setId(id);
+        try {
+            hoaDon.setNgay(sdf.parse(ngay));
         }catch (ParseException e){
             e.printStackTrace();
         }
-        hoaDon.setSoluong(Integer.parseInt(edSoLuong.getText().toString()));
-        hoaDonDAO.add(hoaDon);
+        hoaDon.setSoluong(Integer.parseInt(soLuong));
+        if (check()){
+            hoaDonDAO.add(hoaDon);
+            list.clear();
+            list.addAll(hoaDonDAO.getAll());
+            setAdapter();
+            Toast.makeText(getApplicationContext(),"Thành công",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(),"Thất bại",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
     private void spinnerKhachHang() {
@@ -205,6 +278,32 @@ public class HoaDonActivity extends AppCompatActivity {
         spSanPham = dialog.findViewById(R.id.tensphoandon);
         edSoLuong = dialog.findViewById(R.id.soluonghoadon);
         txtTong = dialog.findViewById(R.id.tonghd);
+        edSoLuong.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                sanPhamDAO = new SanPhamDAO(getApplicationContext());
+                try {
+                    double a = sanPhamDAO.tinhTong(name.trim(),Integer.parseInt(edSoLuong.getText().toString()));
+                    txtTong.setText(String.valueOf(a));
+                    hoaDon.setTongTien(sanPhamDAO.tinhTong(name.trim(),Integer.parseInt(edSoLuong.getText().toString())));
+
+                }catch (NumberFormatException e){
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
 
     }
     public void chonNgayHd(View view){
@@ -220,9 +319,7 @@ public class HoaDonActivity extends AppCompatActivity {
             }
         },year,month,day);
         datePickerDialog.show();
-        sanPhamDAO = new SanPhamDAO(getApplicationContext());
-        txtTong.setText("Tong :  "+sanPhamDAO.tinhTong(name.trim(),Integer.parseInt(edSoLuong.getText().toString())));
-        hoaDon.setTongTien(sanPhamDAO.tinhTong(name.trim(),Integer.parseInt(edSoLuong.getText().toString())));
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

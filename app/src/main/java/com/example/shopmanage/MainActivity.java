@@ -8,19 +8,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.shopmanage.hang.LoaiActivity;
+import com.example.shopmanage.loai.LoaiActivity;
 import com.example.shopmanage.hoadon.HoaDonActivity;
 
 import com.example.shopmanage.khachhang.KhachHangActivity;
-import com.example.shopmanage.model.HoaDon;
-import com.example.shopmanage.nguoidung.UserActivity;
 import com.example.shopmanage.nhanvien.NhanVienActivity;
 import com.example.shopmanage.sanpham.SanPhamActivity;
 import com.example.shopmanage.thongke.ThongKeActivity;

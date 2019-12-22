@@ -52,7 +52,18 @@ public class DangKy extends AppCompatActivity {
     }
     private boolean check(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tạo tài khoản thất bại");
+        builder.setTitle("Tạo tài khoản thất bại !");
+        if (name.trim().length() == 0 || email.trim().length()==0 || user.trim().length() == 0 || pass.trim().length() == 0){
+            builder.setMessage("Vui lòng nhập đầy đủ !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
         if (name.trim().length() >= 20 || name.trim().length() <= 10 ){
             builder.setMessage("Tên phải từ 10 ký tự trở lên !");
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -65,7 +76,7 @@ public class DangKy extends AppCompatActivity {
             return false;
         }
 
-        if (!email.trim().matches("\\\\w+@\\\\w+(\\\\.\\\\w{2,5})") ){
+        if (!email.trim().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$") ){
             builder.setMessage("Email bạn nhập không đúng !");
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
@@ -76,8 +87,8 @@ public class DangKy extends AppCompatActivity {
             builder.show();
             return false;
         }
-        if (user.trim().length() >= 20 || user.trim().length() <= 6 ){
-            builder.setMessage("Tài khoản phải từ 6 ký tự trở lên !");
+        if (user.trim().length() >= 20 || user.trim().length() < 5 ){
+            builder.setMessage("Tài khoản phải từ 5 ký tự trở lên !");
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -87,8 +98,8 @@ public class DangKy extends AppCompatActivity {
             builder.show();
             return false;
         }
-        if (pass.trim().length() >= 20 || pass.trim().length() <= 6 ){
-            builder.setMessage("Mật khẩu phải từ 10 ký tự trở lên !");
+        if (pass.trim().length() >= 20 || pass.trim().length() < 5 ){
+            builder.setMessage("Mật khẩu phải từ 5 ký tự trở lên !");
             builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -107,8 +118,8 @@ public class DangKy extends AppCompatActivity {
         email = edtEmail.getText().toString();
         user = edtUser.getText().toString();
          pass = edtPass.getText().toString();
-        if ( check() &&edtName.length() != 0 && edtEmail.length() != 0 && edtUser.length() != 0
-                && edtPass.length() != 0){
+        if ( check()
+                ){
                 SignUpUser upUser = new SignUpUser(name.trim()
                         ,email.trim(),user.trim(),pass.trim());
                 db.add(upUser);

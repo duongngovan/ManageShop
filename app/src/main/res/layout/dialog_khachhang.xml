@@ -76,7 +76,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Địa Chỉ"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +98,7 @@
 
 
     <Button
-
+        android:onClick="dimssKhachHang"
         android:id="@+id/backbtn"
         android:layout_width="140dp"
         android:layout_height="50dp"

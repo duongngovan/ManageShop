@@ -51,23 +51,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NhanVienActivity extends AppCompatActivity  {
 
-    Dialog dialog;
-    CircleImageView circleImageView;
-    EditText edID,edName,edNgaySinh,edSDT,edDiaChi,edNgayVaoLam,edLuong;
-    Button btnSaved,btnBack;
-    FloatingActionButton btnChonAnh;
-    NhanVienDAO nhanVienDAO;
-    NhanVien nhanVien;
-    DataHelperEmployee dataHelperEmployee;
-    RecyclerNhanVien recyclerNhanVien;
-    RecyclerView recyclerView;
-    List<NhanVien> list;
+    private Dialog dialog;
+    private CircleImageView circleImageView;
+    private EditText edID,edName,edNgaySinh,edSDT,edDiaChi,edNgayVaoLam,edLuong;
+    private Button btnSaved,btnBack;
+    private FloatingActionButton btnChonAnh;
+    private NhanVienDAO nhanVienDAO;
+    private NhanVien nhanVien;
+    private DataHelperEmployee dataHelperEmployee;
+    private RecyclerNhanVien recyclerNhanVien;
+    private RecyclerView recyclerView;
+    private List<NhanVien> list;
 
 
-    int REQUEST_CODE_CAMERA = 123;
-    int REQUEST_CODE_FOLDER = 456;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    Calendar calendar;
+    private int REQUEST_CODE_CAMERA = 123;
+    private int REQUEST_CODE_FOLDER = 456;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private Calendar calendar;
+    private String id,name,ngaySinh,sdt,diaChi,ngayVaoLam,luong;
 
 
 
@@ -180,24 +181,108 @@ public class NhanVienActivity extends AppCompatActivity  {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    private boolean check(){
+        nhanVienDAO = new NhanVienDAO(getApplicationContext());
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Thêm nhân viên thất bại !");
+        if (id.trim().length() == 0 || name.trim().length() == 0 || ngaySinh.trim().length() == 0 || sdt.trim().length() == 0 || diaChi.trim().length() == 0 || ngayVaoLam.trim().length() == 0 || luong.trim().length() == 0){
+            builder.setMessage("Vui lòng nhập đầy đủ !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (nhanVienDAO.checkID(id) ){
+            builder.setMessage("ID đã tồn tại !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if ( id.trim().length() >= 15 || id.trim().length() < 3){
+            builder.setMessage("ID phải từ 3 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        if (name.trim().length() >= 50 || name.trim().length() < 7){
+            builder.setMessage("Tên phải từ 7 ký tự trở lên !");
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+            return false;
+        }
+        try {
+            int i = Integer.parseInt(luong);
+            if (i <= 0){
+                builder.setMessage("Số lượng phải lớn hơn không !");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.show();
+                return false;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return true;
+    }
     public void saved(View view){
+        id = edID.getText().toString();
+        name = edName.getText().toString();
+        sdt = edSDT.getText().toString();
+        ngaySinh = edNgaySinh.getText().toString();
+        ngayVaoLam = edNgayVaoLam.getText().toString();
+        diaChi = edDiaChi.getText().toString();
+        luong = edLuong.getText().toString();
         nhanVienDAO = new NhanVienDAO(getApplicationContext());
         nhanVien = new NhanVien();
         Camera camera = new Camera();
-        nhanVien.setId(edID.getText().toString());
-        nhanVien.setName(edName.getText().toString());
-        nhanVien.setSdt(edSDT.getText().toString());
-        nhanVien.setDiaChi(edDiaChi.getText().toString());
-        nhanVien.setLuong(Double.parseDouble(edLuong.getText().toString()));
+        nhanVien.setId(id);
+        nhanVien.setName(name);
+        nhanVien.setSdt(sdt);
+        nhanVien.setDiaChi(diaChi);
+        nhanVien.setLuong(Double.parseDouble(luong));
         try {
-            nhanVien.setNgaySinh(sdf.parse(edNgaySinh.getText().toString()));
-            nhanVien.setNgayVaoLam(sdf.parse(edNgayVaoLam.getText().toString()));
+            nhanVien.setNgaySinh(sdf.parse(ngaySinh));
+            nhanVien.setNgayVaoLam(sdf.parse(ngayVaoLam));
         }catch (ParseException e){
             e.printStackTrace();
         }
         nhanVien.setImage(camera.ImageView_To_Byte(circleImageView));
-        nhanVienDAO.add(nhanVien);
-        Toast.makeText(getApplicationContext(),"thanh cong",Toast.LENGTH_SHORT).show();
+        if (check()){
+            nhanVienDAO.add(nhanVien);
+            list.clear();
+            list.addAll(nhanVienDAO.getAll());
+            setAdapter();
+            Toast.makeText(getApplicationContext(),"Thành công",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(),"Thất bại",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void dimssNhanVien(View view){
+        dialog.dismiss();
     }
 
     @Override
@@ -210,7 +295,7 @@ public class NhanVienActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.themnhanvien){
-            Toast.makeText(getApplicationContext(),"Chon them",Toast.LENGTH_SHORT).show();
+
             dialog.show();
         }
         return super.onOptionsItemSelected(item);

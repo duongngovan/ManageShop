@@ -63,13 +63,13 @@
                 android:id="@+id/id_loai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="80dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginRight="80dp"
                 android:text="Mã :"
                 android:textColor="@android:color/black"
                 android:textSize="35dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

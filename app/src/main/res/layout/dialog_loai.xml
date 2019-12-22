@@ -85,6 +85,7 @@
 
 
     <Button
+        android:onClick="dimssLoai"
         android:id="@+id/backbtn"
         android:layout_width="140dp"
         android:layout_height="50dp"

@@ -37,7 +37,7 @@
             android:theme="@style/SanPham.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".hang.LoaiActivity"
+            android:name=".loai.LoaiActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Loai.NoActionBar"
             android:screenOrientation="portrait"/>
